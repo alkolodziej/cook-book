@@ -30,4 +30,3 @@
 
 - C++ compiler with support for C++11 or later.
 - QT framework installed on your system.
-- 
