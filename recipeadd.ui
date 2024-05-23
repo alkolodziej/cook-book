@@ -58,7 +58,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Title:</string>
+    <string>Tytuł:</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -71,10 +71,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>Description:</string>
+    <string>Opis:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="saveButton">
    <property name="geometry">
     <rect>
      <x>400</x>
@@ -87,7 +87,7 @@
     <string>Zapisz</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="cancelButton">
    <property name="geometry">
     <rect>
      <x>300</x>

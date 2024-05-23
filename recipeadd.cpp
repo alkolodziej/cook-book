@@ -13,7 +13,7 @@ RecipeAdd::~RecipeAdd()
     delete ui;
 }
 
-void RecipeAdd::on_pushButton_clicked()
+void RecipeAdd::on_saveButton_clicked()
 {
     QString recipeName = ui->lineEdit->text();
     QString recipeDescription = ui->textEdit->toPlainText();
@@ -30,8 +30,9 @@ void RecipeAdd::on_pushButton_clicked()
     }
 }
 
-void RecipeAdd::on_pushButton_2_clicked()
+void RecipeAdd::on_cancelButton_clicked()
 {
     emit rejected();
     close();
 }
+
