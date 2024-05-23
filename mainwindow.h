@@ -1,14 +1,11 @@
+// mainwindow.h
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
-#include "recipecard.h"
 
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
+namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -21,10 +18,11 @@ public:
 
 private slots:
     void on_addRecipeButton_clicked();
+    void handleRecipeAdded(const QString &name, const QString &description);
+    void handleRecipeDialogClosed();
 
 private:
     Ui::MainWindow *ui;
-    int column;
-    int row;
 };
+
 #endif // MAINWINDOW_H
