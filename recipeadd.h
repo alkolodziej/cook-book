@@ -20,13 +20,12 @@ signals:
     void recipeAdded(const QString &name, const QString &description);
     void rejected();
 
+protected:
+    void closeEvent(QCloseEvent *event) override;  // Override closeEvent
+
 private slots:
-    void on_pushButton_clicked();
-    void on_pushButton_2_clicked();
-
-    void on_cancelButton_clicked();
-
-    void on_saveButton_clicked();
+    void handleCancelButton();
+    void handleSaveButton();
 
 private:
     Ui::RecipeAdd *ui;

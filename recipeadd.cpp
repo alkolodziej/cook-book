@@ -6,6 +6,10 @@ RecipeAdd::RecipeAdd(QWidget *parent) :
     ui(new Ui::RecipeAdd)
 {
     ui->setupUi(this);
+
+    // Explicitly connect signals to slots
+    connect(ui->cancelButton, &QPushButton::clicked, this, &RecipeAdd::handleCancelButton);
+    connect(ui->saveButton, &QPushButton::clicked, this, &RecipeAdd::handleSaveButton);
 }
 
 RecipeAdd::~RecipeAdd()
@@ -13,26 +17,30 @@ RecipeAdd::~RecipeAdd()
     delete ui;
 }
 
-void RecipeAdd::on_saveButton_clicked()
+void RecipeAdd::handleSaveButton()
 {
     QString recipeName = ui->lineEdit->text();
     QString recipeDescription = ui->textEdit->toPlainText();
 
     if (!recipeName.isEmpty() && !recipeDescription.isEmpty())
     {
-        // Emitowanie sygnału z danymi o nowym przepisie
         emit recipeAdded(recipeName, recipeDescription);
         close();
     }
     else
     {
-        QMessageBox::warning(this, "Błąd", "Wypełnij wszystkie pola przed zapisaniem przepisu.");
+        QMessageBox::warning(this, "Error", "Please fill in all fields before saving the recipe.");
     }
 }
 
-void RecipeAdd::on_cancelButton_clicked()
+void RecipeAdd::handleCancelButton()
 {
     emit rejected();
     close();
 }
 
+void RecipeAdd::closeEvent(QCloseEvent *event)
+{
+    emit rejected();
+    QDialog::closeEvent(event);  // Call the base class implementation
+}
