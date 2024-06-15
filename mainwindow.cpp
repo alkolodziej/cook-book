@@ -58,3 +58,16 @@ void MainWindow::handleRecipeDialogClosed()
 {
     ui->addRecipeButton->setEnabled(true);
 }
+
+void MainWindow::on_searchLineEdit_textChanged(const QString &arg1)
+{
+    for (int i = 0; i < ui->gridLayout->count(); ++i) {
+        QWidget *widget = ui->gridLayout->itemAt(i)->widget();
+        RecipeCard *recipeCard = qobject_cast<RecipeCard*>(widget);
+        if (recipeCard) {
+            bool match = recipeCard->getRecipeName().contains(arg1, Qt::CaseInsensitive);
+            recipeCard->setVisible(match);
+        }
+    }
+}
+
