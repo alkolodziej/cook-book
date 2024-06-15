@@ -1,8 +1,11 @@
-// mainwindow.h
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include "recipecard.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,8 +21,9 @@ public:
 
 private slots:
     void on_addRecipeButton_clicked();
-    void handleRecipeAdded(const QString &name, const QString &description);
+    void handleRecipeAdded(const QString &name, const QString &description, const QString &pic, const QString &recipe);
     void handleRecipeDialogClosed();
+    void handleRecipeDeleted(RecipeCard *recipeCard);
 
 private:
     Ui::MainWindow *ui;

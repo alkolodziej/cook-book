@@ -20,11 +20,13 @@ RecipeAdd::~RecipeAdd()
 void RecipeAdd::handleSaveButton()
 {
     QString recipeName = ui->lineEdit->text();
-    QString recipeDescription = ui->textEdit->toPlainText();
+    QString recipeDescription = ui->lineEdit_2->text();
+    QString recipePic = ui->lineEdit_3->text();
+    QString recipe = ui->textEdit->toPlainText();
 
-    if (!recipeName.isEmpty() && !recipeDescription.isEmpty())
+    if (!recipeName.isEmpty() && !recipeDescription.isEmpty() && !recipePic.isEmpty() && !recipe.isEmpty())
     {
-        emit recipeAdded(recipeName, recipeDescription);
+        emit recipeAdded(recipeName, recipeDescription, recipePic, recipe);
         close();
     }
     else

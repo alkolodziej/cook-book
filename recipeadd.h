@@ -17,7 +17,7 @@ public:
     ~RecipeAdd();
 
 signals:
-    void recipeAdded(const QString &name, const QString &description);
+    void recipeAdded(const QString &name, const QString &description, const QString &pic, const QString &recipe);
     void rejected();
 
 protected:

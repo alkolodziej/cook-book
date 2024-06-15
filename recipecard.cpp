@@ -1,11 +1,21 @@
 #include "recipecard.h"
 #include "ui_recipecard.h"
+#include <QFile>
+#include <QTextStream>
+#include <QFileDialog>
+#include <QStandardPaths>
+#include <QDebug>
 
 RecipeCard::RecipeCard(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::RecipeCard)
 {
     ui->setupUi(this);
+
+    // Connect delete button click to deleteRecipe slot
+    connect(ui->pushButtonDelete, &QPushButton::clicked, this, &RecipeCard::on_pushButtonDelete_clicked);
+    // Connect download button click to downloadRecipe slot
+    connect(ui->pushButtonDownload, &QPushButton::clicked, this, &RecipeCard::on_pushButtonDownload_clicked);
 }
 
 RecipeCard::~RecipeCard()
@@ -13,26 +23,67 @@ RecipeCard::~RecipeCard()
     delete ui;
 }
 
-void RecipeCard::setRecipeName(const QString &name)
+void RecipeCard::setRecipe(const QString &name, const QString &description, const QString &image, const QString &recipe)
 {
-    ui->titleLabel->setText(name);
+    recipeName = name;
+    recipeDescription = description;
+    imagePath = image;
+    recipeText = recipe;
+
+    ui->titleLabel->setText(recipeName);
+    ui->descriptionLabel->setText(recipeDescription);
+    QPixmap pixmap(imagePath);
+    ui->imageLabel->setPixmap(pixmap);
 }
 
-void RecipeCard::setRecipeDescription(const QString &description)
+QString RecipeCard::getRecipeName() const
 {
-    ui->descriptionLabel->setText(description);
+    return recipeName;
 }
 
-void RecipeCard::setRecipeImage(const QPixmap &image)
+QString RecipeCard::getRecipeDescription() const
 {
-    ui->imageLabel->setPixmap(image);
+    return recipeDescription;
 }
 
-RecipeCard* RecipeCard::createRecipeCard(const QString &name, const QString &description, const QString &imagePath, QWidget *parent)
+QString RecipeCard::getRecipeImagePath() const
 {
-    RecipeCard *recipeCard = new RecipeCard(parent);
-    recipeCard->setRecipeName(name);
-    recipeCard->setRecipeDescription(description);
-    recipeCard->setRecipeImage(QPixmap(imagePath));
-    return recipeCard;
+    return imagePath;
+}
+
+QString RecipeCard::getRecipeText() const
+{
+    return recipeText;
+}
+
+RecipeCard* RecipeCard::createRecipeCard(const QString &name, const QString &description, const QString &imagePath, const QString &recipe, QWidget *parent)
+{
+    RecipeCard *newRecipeCard = new RecipeCard(parent);
+    newRecipeCard->setRecipe(name, description, imagePath, recipe);
+    return newRecipeCard;
+}
+
+void RecipeCard::on_pushButtonDelete_clicked()
+{
+    emit recipeDeleted(this);
+}
+
+void RecipeCard::on_pushButtonDownload_clicked()
+{
+    QString desktopPath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+    QString fileName = desktopPath + "/" + recipeName + ".txt";
+
+    QFile file(fileName);
+
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << "Title: " << recipeName << "\n";
+        out << "Description: " << recipeDescription << "\n";
+        out << "Image Path: " << imagePath << "\n";
+        out << "Recipe: " << recipeText << "\n";
+        file.close();
+        qDebug() << "Recipe saved to " << fileName;
+    } else {
+        qDebug() << "Could not open file " << fileName << " for writing.";
+    }
 }

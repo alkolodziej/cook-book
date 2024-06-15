@@ -16,14 +16,28 @@ public:
     explicit RecipeCard(QWidget *parent = nullptr);
     ~RecipeCard();
 
-    void setRecipeName(const QString &name);
-    void setRecipeDescription(const QString &description);
-    void setRecipeImage(const QPixmap &image);
+    void setRecipe(const QString &name, const QString &description, const QString &image, const QString &recipe);
 
-    static RecipeCard* createRecipeCard(const QString &name, const QString &description, const QString &imagePath, QWidget *parent = nullptr);
+    QString getRecipeName() const;
+    QString getRecipeDescription() const;
+    QString getRecipeImagePath() const;
+    QString getRecipeText() const;
+
+    static RecipeCard* createRecipeCard(const QString &name, const QString &description, const QString &imagePath, const QString &recipe, QWidget *parent = nullptr);
+
+signals:
+    void recipeDeleted(RecipeCard *recipeCard); // Signal to notify deletion
+
+private slots:
+    void on_pushButtonDelete_clicked(); // Slot for handling delete button click
+    void on_pushButtonDownload_clicked(); // Slot for handling download button click
 
 private:
     Ui::RecipeCard *ui;
+    QString recipeName;
+    QString recipeDescription;
+    QString imagePath; // Save image path as string
+    QString recipeText;
 };
 
 #endif // RECIPECARD_H
