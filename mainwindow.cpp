@@ -60,6 +60,7 @@ void MainWindow::handleRecipeAdded(const QString &name, const QString &descripti
 {
     RecipeCard *newRecipe = RecipeCard::createRecipeCard(name, description, pic, recipe, this);
     connect(newRecipe, &RecipeCard::recipeDeleted, this, &MainWindow::handleRecipeDeleted);
+    connect(newRecipe, &RecipeCard::recipeEdited, this, &MainWindow::handleRecipeEdited);  // Add this line
 
     int count = gridLayout->count();
     int column = count % 4;
@@ -156,13 +157,13 @@ void MainWindow::saveRecipes() const
     }
 }
 
-void MainWindow::handleRecipeEdited(const QString &name, const QString &description, const QString &imagePath, const QString &recipe)
+void MainWindow::handleRecipeEdited(const QString &originalName, const QString &name, const QString &description, const QString &imagePath, const QString &recipe)
 {
     // Update the recipe details in the UI
     for (int i = 0; i < containerWidget->children().size(); ++i) {
         QWidget *widget = qobject_cast<QWidget*>(containerWidget->children().at(i));
         RecipeCard *recipeCard = qobject_cast<RecipeCard*>(widget);
-        if (recipeCard && recipeCard->getRecipeName() == name) {
+        if (recipeCard && recipeCard->getRecipeName() == originalName) {
             recipeCard->setRecipe(name, description, imagePath, recipe);
         }
     }

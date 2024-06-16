@@ -27,6 +27,7 @@ public:
 
 signals:
     void recipeDeleted(RecipeCard *recipeCard); // Signal to notify deletion
+    void recipeEdited(const QString &originalName, const QString &name, const QString &description, const QString &imagePath, const QString &recipe);  // Add this line
 
 private slots:
     void on_pushButtonDelete_clicked(); // Slot for handling delete button click

@@ -17,6 +17,7 @@ RecipeDetailWindow::~RecipeDetailWindow()
 
 void RecipeDetailWindow::setRecipeDetails(const QString &name, const QString &description, const QString &imagePath, const QString &recipe)
 {
+    originalName = name;  // Add this line
     ui->recipeNameLineEdit->setText(name);
     ui->recipeDescriptionBrowser->setText(description);
     ui->recipeTextBrowser->setText(recipe);
@@ -48,12 +49,8 @@ void RecipeDetailWindow::on_saveButton_clicked()
     QString editedName = ui->recipeNameLineEdit->text();
     QString editedDescription = ui->recipeDescriptionBrowser->toPlainText();
     QString editedRecipe = ui->recipeTextBrowser->toPlainText();
-    qDebug() << "Edited name: " << editedName;
-    qDebug() << "Edited description: " << editedDescription;
-    qDebug() << "Edited recipe: " << editedRecipe;
     // Emit the signal to notify that the recipe was edited
-    emit recipeEdited(editedName, editedDescription, currentImagePath, editedRecipe);
-    qDebug() << "Recipe edited";
+    emit recipeEdited(originalName, editedName, editedDescription, currentImagePath, editedRecipe);
     // Disable editing again
     ui->recipeNameLineEdit->setReadOnly(true);
     ui->recipeDescriptionBrowser->setReadOnly(true);

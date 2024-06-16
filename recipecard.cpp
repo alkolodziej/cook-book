@@ -97,5 +97,13 @@ void RecipeCard::on_pushButtonSeeRecipe_clicked()
     qDebug() << "See recipe clicked";
     RecipeDetailWindow *detailWindow = new RecipeDetailWindow();
     detailWindow->setRecipeDetails(recipeName, recipeDescription, imagePath, recipeText);
+
+    connect(detailWindow, &RecipeDetailWindow::recipeEdited, this, [=](const QString &originalName, const QString &name, const QString &description, const QString &imagePath, const QString &recipe) {
+        if (originalName == recipeName) {  // Ensure we are editing the correct recipe
+            setRecipe(name, description, imagePath, recipe);
+            emit recipeEdited(originalName, name, description, imagePath, recipe);  // Emit the signal
+        }
+    });
+
     detailWindow->show();
 }

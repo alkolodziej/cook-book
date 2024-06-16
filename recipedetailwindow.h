@@ -21,11 +21,12 @@ private slots:
     void on_saveButton_clicked();
 
 signals:
-    void recipeEdited(const QString &name, const QString &description, const QString &imagePath, const QString &recipe);
+    void recipeEdited(const QString &originalName, const QString &name, const QString &description, const QString &imagePath, const QString &recipe);
 
 private:
     Ui::RecipeDetailWindow *ui;
     QString currentImagePath;
+    QString originalName;  // Add this line
 };
 
 #endif // RECIPEDETAILWINDOW_H
