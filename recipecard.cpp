@@ -1,5 +1,6 @@
 #include "recipecard.h"
 #include "ui_recipecard.h"
+#include "recipedetailwindow.h"
 #include <QFile>
 #include <QTextStream>
 #include <QFileDialog>
@@ -16,6 +17,9 @@ RecipeCard::RecipeCard(QWidget *parent) :
     connect(ui->pushButtonDelete, &QPushButton::clicked, this, &RecipeCard::on_pushButtonDelete_clicked);
     // Connect download button click to downloadRecipe slot
     connect(ui->pushButtonDownload, &QPushButton::clicked, this, &RecipeCard::on_pushButtonDownload_clicked);
+    // Connect see recipe button click to seeRecipe slot
+    // connect(ui->pushButtonSeeRecipe, &QPushButton::clicked, this, &RecipeCard::on_pushButtonSeeRecipe_clicked);
+
 }
 
 RecipeCard::~RecipeCard()
@@ -86,4 +90,12 @@ void RecipeCard::on_pushButtonDownload_clicked()
     } else {
         qDebug() << "Could not open file " << fileName << " for writing.";
     }
+}
+
+void RecipeCard::on_pushButtonSeeRecipe_clicked()
+{
+    qDebug() << "See recipe clicked";
+    RecipeDetailWindow *detailWindow = new RecipeDetailWindow();
+    detailWindow->setRecipeDetails(recipeName, recipeDescription, imagePath, recipeText);
+    detailWindow->show();
 }

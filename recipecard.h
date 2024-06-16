@@ -31,7 +31,7 @@ signals:
 private slots:
     void on_pushButtonDelete_clicked(); // Slot for handling delete button click
     void on_pushButtonDownload_clicked(); // Slot for handling download button click
-
+    void on_pushButtonSeeRecipe_clicked(); // Slot for handling see recipe button click
 private:
     Ui::RecipeCard *ui;
     QString recipeName;

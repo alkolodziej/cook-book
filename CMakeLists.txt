@@ -31,6 +31,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         recipecard.h
         recipeimages.qrc
         recipeadd.h recipeadd.cpp recipeadd.ui
+        recipedetailwindow.h recipedetailwindow.cpp recipedetailwindow.ui
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET cook-book APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
