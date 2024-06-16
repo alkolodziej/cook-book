@@ -7,50 +7,36 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>600</height>
+    <height>300</height>
    </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Recipe Details</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="recipeNameLabel">
+    <widget class="QLabel" name="recipeNameLabel"/>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="recipeNameLineEdit"/>
+   </item>
+   <item>
+    <widget class="QLabel" name="recipeImageLabel"/>
+   </item>
+   <item>
+    <widget class="QTextBrowser" name="recipeDescriptionBrowser"/>
+   </item>
+   <item>
+    <widget class="QTextBrowser" name="recipeTextBrowser"/>
+   </item>
+   <item>
+    <widget class="QPushButton" name="editButton">
      <property name="text">
-      <string>Recipe Name</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
+      <string>Edit</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="recipeImageLabel">
+    <widget class="QPushButton" name="saveButton">
      <property name="text">
-      <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QTextBrowser" name="recipeDescriptionBrowser">
-     <property name="html">
-      <string notr="true">Description</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QTextBrowser" name="recipeTextBrowser">
-     <property name="html">
-      <string notr="true">Recipe Text</string>
+      <string>Save</string>
      </property>
     </widget>
    </item>

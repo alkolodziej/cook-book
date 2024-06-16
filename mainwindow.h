@@ -27,6 +27,7 @@ private slots:
     void handleRecipeDialogClosed();
     void handleRecipeDeleted(RecipeCard *recipeCard);
     void on_searchLineEdit_textChanged(const QString &arg1);
+    void handleRecipeEdited(const QString &name, const QString &description, const QString &imagePath, const QString &recipe);
 
 private:
     Ui::MainWindow *ui;

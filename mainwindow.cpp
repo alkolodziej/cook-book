@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "recipecard.h"
 #include "recipeadd.h"
+#include "recipedetailwindow.h"
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -154,6 +155,22 @@ void MainWindow::saveRecipes() const
         qDebug() << "Could not open file for writing:" << recipeFilePath;
     }
 }
+
+void MainWindow::handleRecipeEdited(const QString &name, const QString &description, const QString &imagePath, const QString &recipe)
+{
+    // Update the recipe details in the UI
+    for (int i = 0; i < containerWidget->children().size(); ++i) {
+        QWidget *widget = qobject_cast<QWidget*>(containerWidget->children().at(i));
+        RecipeCard *recipeCard = qobject_cast<RecipeCard*>(widget);
+        if (recipeCard && recipeCard->getRecipeName() == name) {
+            recipeCard->setRecipe(name, description, imagePath, recipe);
+        }
+    }
+
+    // Save the updated recipes
+    saveRecipes();
+}
+
 
 void MainWindow::updateLayout()
 {
