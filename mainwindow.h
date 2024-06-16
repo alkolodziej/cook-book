@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QScrollArea>
+#include <QGridLayout>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QJsonDocument>
@@ -24,11 +26,18 @@ private slots:
     void handleRecipeAdded(const QString &name, const QString &description, const QString &pic, const QString &recipe);
     void handleRecipeDialogClosed();
     void handleRecipeDeleted(RecipeCard *recipeCard);
-
     void on_searchLineEdit_textChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;
+    QScrollArea *scrollArea;
+    QWidget *containerWidget;
+    QGridLayout *gridLayout;
+    QString recipeFilePath;
+
+    void loadRecipes();
+    void saveRecipes() const;
+    void updateLayout();
 };
 
 #endif // MAINWINDOW_H
